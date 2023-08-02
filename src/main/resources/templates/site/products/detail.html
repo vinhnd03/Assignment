@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{site/dashboardLayout.html}">
+
+<head>
+</head>
+
+<body>
+      <section class="container"  layout:fragment="content">
+        <div class="row" th:object="${product}">
+            <div class="col-6 card">
+                <div class="card-body" align="center">
+                    <img th:src="${product.image != null?'/site/products/images/' + product.image : '/images/OIP.jpg'}" width="90%" class="img-fluid">
+                	<p>Hình ảnh sản phẩm</p>
+                </div>
+            </div>
+            <div class="col-6 card" >
+                <div class="card-header">
+                    <h3 th:text="${product.name}"></h3>
+                </div>
+                <div class="card-body">
+                	<div class="card-header">
+                    	<h5>Thông tin sản phẩm:</h5>
+                    </div>
+                    <div class="card-body">
+                    	<h5>
+							<span th:if="${product.status == 0}">Status: Out Of Stock</span> 
+							<span th:if="${product.status == 1}">Status: On Sale</span> 
+							<span th:if="${product.status == 2}">Status: Featured</span>
+							<span th:if="${product.status == 3}">Status: Best Seller</span>
+							<span th:if="${product.status == 4}">Status: Out Of Order</span>
+						</h5>
+                    	<hr>
+                    	<h5 th:text="'Quantity: ' + ${product.quantity}"></h5>
+                    	<hr>
+                    	<h5 th:text="'Unit Price: ' + ${product.unitPrice} + '$'"></h5>
+                    	<hr>
+                    	<h5 th:text="'Discount: ' + ${product.discount} + '%'"></h5>
+                    	<hr>
+                    	<h5 class="text-danger" th:text="'TOTAL PRICE: ' + ${product.unitPrice - (product.unitPrice * product.discount/100) + '$'}"></h5>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-outline-danger" 
+                    th:href="@{'/site/products/addToCart/' + ${product.productId}}"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
+                    <a class="btn btn-outline-warning">Mua</a>
+                </div>
+            </div>
+        </div>
+        
+
+      </section>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

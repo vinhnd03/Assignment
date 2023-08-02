@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{site/dashboardLayout.html}">
+
+<head>
+</head>
+<body>
+	<section class="container" layout:fragment="content">
+        <div class="row">
+            <div class="col-3 mt-4"  th:each="item : ${products}">
+                <div class="card" align="center">
+                    <div class="card-header">
+                        <img th:src="${item.image != null?'/site/products/images/' + item.image : '/images/OIP.jpg'}"
+						  src="/images/OIP.jpg"
+                         width="80%">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${item.name}"></h5>
+                        <p class="card-text" th:text="${item.unitPrice + '$'}"></p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-primary" th:href="@{'/site/products/detail/' + ${item.productId}}">Xem thông tin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+  </body>
+  
+  </html>
